@@ -1,8 +1,6 @@
 package com.github.tiniyield.sequences.benchmarks.concurrency.first;
 
 import com.github.tiniyield.sequences.benchmarks.AbstractSequenceOperationsBenchmark;
-import com.github.tiniyield.sequences.benchmarks.ISequenceBenchmark;
-import com.github.tiniyield.sequences.benchmarks.operations.common.SequenceBenchmarkUtils;
 import com.github.tiniyield.sequences.benchmarks.operations.data.providers.AbstractBaseDataProvider;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;

@@ -1,7 +1,6 @@
 package com.github.tiniyield.sequences.benchmarks.concurrency.math.sine;
 
 import com.github.tiniyield.sequences.benchmarks.operations.data.providers.number.IntegerDataProvider;
-import org.apache.commons.math3.util.FastMath;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Mode;

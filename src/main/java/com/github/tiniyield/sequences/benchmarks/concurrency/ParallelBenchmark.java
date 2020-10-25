@@ -13,7 +13,6 @@ import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.infra.Blackhole;
 
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Stream;
 
 @BenchmarkMode(Mode.Throughput)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)

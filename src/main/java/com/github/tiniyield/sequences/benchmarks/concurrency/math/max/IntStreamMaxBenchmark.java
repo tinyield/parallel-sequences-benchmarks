@@ -11,7 +11,6 @@ import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.infra.Blackhole;
 
-import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 

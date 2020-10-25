@@ -1,7 +1,6 @@
 package com.github.tiniyield.sequences.benchmarks.concurrency.flatmap;
 
 import com.github.tiniyield.sequences.benchmarks.AbstractSequenceOperationsBenchmark;
-import com.github.tiniyield.sequences.benchmarks.ISequenceBenchmark;
 import com.github.tiniyield.sequences.benchmarks.operations.data.providers.number.NestedIntegerDataProvider;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
