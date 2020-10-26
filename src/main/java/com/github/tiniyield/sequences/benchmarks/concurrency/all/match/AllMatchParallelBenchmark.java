@@ -1,7 +1,6 @@
 package com.github.tiniyield.sequences.benchmarks.concurrency.all.match;
 
 import com.github.tiniyield.sequences.benchmarks.AbstractSequenceOperationsBenchmark;
-import com.github.tiniyield.sequences.benchmarks.operations.data.providers.number.EvenSequenceDataProvider;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Mode;
@@ -12,9 +11,11 @@ import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.infra.Blackhole;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import static com.github.tiniyield.sequences.benchmarks.operations.common.SequenceBenchmarkUtils.getEvenDataProvider;
+import static com.github.tiniyield.sequences.benchmarks.operations.common.SequenceBenchmarkConstants.EVEN;
 
 @BenchmarkMode(Mode.Throughput)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
@@ -23,20 +24,26 @@ public class AllMatchParallelBenchmark extends AbstractSequenceOperationsBenchma
 
     @Param({"10000"})
     private int COLLECTION_SIZE;
-    private EvenSequenceDataProvider provider;
+    private List<Integer> data;
+
+    private static Integer[] getAllEvenArray(int size) {
+        Integer[] numbers = new Integer[size];
+        Arrays.fill(numbers, EVEN);
+        return numbers;
+    }
 
     @Setup
     public void setup() {
         super.init();
-        provider = getEvenDataProvider(COLLECTION_SIZE);
+        data = Arrays.asList(getAllEvenArray(COLLECTION_SIZE));
     }
 
     private boolean getStream() {
-        return stream.isEveryEven(provider.asStream());
+        return stream.isEveryEven(data.stream());
     }
 
     private boolean getStreamParallel() {
-        return stream.isEveryEven(provider.asStream().parallel());
+        return stream.isEveryEven(data.stream().parallel());
     }
 
     @Benchmark

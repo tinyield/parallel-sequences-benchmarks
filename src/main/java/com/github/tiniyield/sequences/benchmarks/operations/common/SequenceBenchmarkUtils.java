@@ -2,7 +2,6 @@ package com.github.tiniyield.sequences.benchmarks.operations.common;
 
 import com.github.tiniyield.sequences.benchmarks.operations.data.providers.number.EvenExceptEndSequenceDataProvider;
 import com.github.tiniyield.sequences.benchmarks.operations.data.providers.number.EvenExceptMiddleSequenceDataProvider;
-import com.github.tiniyield.sequences.benchmarks.operations.data.providers.number.EvenSequenceDataProvider;
 import com.github.tiniyield.sequences.benchmarks.operations.data.providers.number.IntegerDataProvider;
 import com.github.tiniyield.sequences.benchmarks.operations.data.providers.object.ValueDataProvider;
 
@@ -10,7 +9,6 @@ public class SequenceBenchmarkUtils {
 
     private static IntegerDataProvider NUMBERS_DATA_PROVIDER;
     private static ValueDataProvider VALUE_DATA_PROVIDER;
-    private static EvenSequenceDataProvider EVEN_DATA_PROVIDER;
     private static EvenExceptMiddleSequenceDataProvider EVEN_EXCEPT_MIDDLE_DATA_PROVIDER;
     private static EvenExceptEndSequenceDataProvider EVEN_EXCEPT_END_DATA_PROVIDER;
 
@@ -20,10 +18,6 @@ public class SequenceBenchmarkUtils {
 
     private static void initEvenExceptMiddleDataProvider(int size) {
         EVEN_EXCEPT_MIDDLE_DATA_PROVIDER = new EvenExceptMiddleSequenceDataProvider(size);
-    }
-
-    private static void initEvenDataProvider(int size) {
-        EVEN_DATA_PROVIDER = new EvenSequenceDataProvider(size);
     }
 
     private static void initValueDataProvider(int size) {
@@ -82,13 +76,6 @@ public class SequenceBenchmarkUtils {
 
     public static Integer increment(Integer value) {
         return value + 1;
-    }
-
-    public static EvenSequenceDataProvider getEvenDataProvider(int size) {
-        if(EVEN_DATA_PROVIDER == null) {
-            initEvenDataProvider(size);
-        }
-        return EVEN_DATA_PROVIDER;
     }
 
     public static EvenExceptMiddleSequenceDataProvider getEvenExceptMiddleDataProvider(int size) {
