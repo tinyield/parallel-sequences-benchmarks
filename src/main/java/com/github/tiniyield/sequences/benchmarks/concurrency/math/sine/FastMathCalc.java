@@ -16,9 +16,9 @@ package com.github.tiniyield.sequences.benchmarks.concurrency.math.sine;
  * limitations under the License.
  */
 
-import java.io.PrintStream;
-
 import org.apache.commons.math3.exception.DimensionMismatchException;
+
+import java.io.PrintStream;
 
 /** Class used to compute the classical functions tables.
  * @since 3.0

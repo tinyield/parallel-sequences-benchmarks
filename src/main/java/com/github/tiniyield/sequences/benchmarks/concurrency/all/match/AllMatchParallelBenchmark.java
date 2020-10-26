@@ -1,6 +1,6 @@
 package com.github.tiniyield.sequences.benchmarks.concurrency.all.match;
 
-import com.github.tiniyield.sequences.benchmarks.AbstractSequenceOperationsBenchmark;
+import com.github.tiniyield.sequences.benchmarks.operations.common.SequenceBenchmarkUtils;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Mode;
@@ -14,13 +14,14 @@ import org.openjdk.jmh.infra.Blackhole;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Stream;
 
 import static com.github.tiniyield.sequences.benchmarks.operations.common.SequenceBenchmarkConstants.EVEN;
 
 @BenchmarkMode(Mode.Throughput)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
 @State(Scope.Benchmark)
-public class AllMatchParallelBenchmark extends AbstractSequenceOperationsBenchmark {
+public class AllMatchParallelBenchmark {
 
     @Param({"10000"})
     private int COLLECTION_SIZE;
@@ -34,26 +35,21 @@ public class AllMatchParallelBenchmark extends AbstractSequenceOperationsBenchma
 
     @Setup
     public void setup() {
-        super.init();
         data = Arrays.asList(getAllEvenArray(COLLECTION_SIZE));
     }
 
-    private boolean getStream() {
-        return stream.isEveryEven(data.stream());
-    }
-
-    private boolean getStreamParallel() {
-        return stream.isEveryEven(data.stream().parallel());
+    public boolean isEveryEven(Stream<Integer> numbers) {
+        return numbers.allMatch(SequenceBenchmarkUtils::isEven);
     }
 
     @Benchmark
     public void parallel(Blackhole bh) { // With Auxiliary Function
-        bh.consume(getStreamParallel());
+        bh.consume(isEveryEven(data.stream()));
     }
 
     @Benchmark
     public void sequential(Blackhole bh) { // With Auxiliary Function
-        bh.consume(getStream());
+        bh.consume(isEveryEven(data.stream().parallel()));
     }
 
 }
