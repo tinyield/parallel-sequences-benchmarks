@@ -1,24 +1,65 @@
 package com.github.tiniyield.sequences.benchmarks.concurrency.first;
 
+import com.github.tiniyield.sequences.benchmarks.operations.common.SequenceBenchmarkUtils;
+import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Mode;
 import org.openjdk.jmh.annotations.OutputTimeUnit;
+import org.openjdk.jmh.annotations.Param;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
+import org.openjdk.jmh.infra.Blackhole;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Stream;
 
-import static com.github.tiniyield.sequences.benchmarks.operations.common.SequenceBenchmarkUtils.getEvenExceptMiddleDataProvider;
+import static com.github.tiniyield.sequences.benchmarks.operations.common.SequenceBenchmarkConstants.EVEN;
+import static com.github.tiniyield.sequences.benchmarks.operations.common.SequenceBenchmarkConstants.ODD;
 
 @BenchmarkMode(Mode.Throughput)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
 @State(Scope.Benchmark)
-public class FindFirstInMiddleParallelBenchmark extends FindFirstParallelBenchmark {
+public class FindFirstInMiddleParallelBenchmark {
+    @Param({"10000"})
+    public int COLLECTION_SIZE;
+    private List<Integer> data;
+
+    public List<Integer> getAllEvenExceptMiddle() {
+        Integer[] numbers = new Integer[COLLECTION_SIZE];
+        Arrays.fill(numbers, EVEN);
+        numbers[(numbers.length / 2) - 1] = ODD;
+        return Arrays.asList(numbers);
+    }
+
+    public Optional<Integer> findFirst(Stream<Integer> numbers) {
+        return numbers.filter(SequenceBenchmarkUtils::isOdd).findFirst();
+    }
 
     @Setup
     public void init() {
-        provider = getEvenExceptMiddleDataProvider(COLLECTION_SIZE);
+        data = getAllEvenExceptMiddle();
+    }
+
+    public Integer findFirstSequential() {
+        return findFirst(data.stream()).orElseThrow();
+    }
+
+    public Integer findFirstParallel() {
+        return findFirst(data.stream().parallel()).orElseThrow();
+    }
+
+    @Benchmark
+    public void parallel(Blackhole bh) { // With Auxiliary Function
+        bh.consume(findFirstParallel());
+    }
+
+    @Benchmark
+    public void sequential(Blackhole bh) { // With Auxiliary Function
+        bh.consume(findFirstSequential());
     }
 
 }
