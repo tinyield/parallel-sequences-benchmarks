@@ -1,8 +1,9 @@
 package com.github.tiniyield.sequences.benchmarks.concurrency.all.match;
 
-import com.github.tiniyield.sequences.benchmarks.operations.TestDataProvider;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import java.util.stream.Stream;
 
 import static org.testng.AssertJUnit.assertFalse;
 import static org.testng.AssertJUnit.assertTrue;
@@ -20,13 +21,11 @@ public class AllMatchParallelBenchmarkTest {
 
     @Test
     public void testIsEveryEvenSuccess() {
-        TestDataProvider<Integer> provider = new TestDataProvider<>(2, 2);
-        assertTrue(instance.isEveryEven(provider.asStream()));
+        assertTrue(instance.isEveryEven(Stream.of(2, 2)));
     }
 
     @Test
     public void testIsEveryEvenFailure() {
-        TestDataProvider<Integer> provider = new TestDataProvider<>(2, 1);
-        assertFalse(instance.isEveryEven(provider.asStream()));
+        assertFalse(instance.isEveryEven(Stream.of(2, 1)));
     }
 }

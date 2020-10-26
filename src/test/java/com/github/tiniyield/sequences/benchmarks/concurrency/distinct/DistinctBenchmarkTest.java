@@ -3,7 +3,7 @@ package com.github.tiniyield.sequences.benchmarks.concurrency.distinct;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
 
 public class DistinctBenchmarkTest {
 

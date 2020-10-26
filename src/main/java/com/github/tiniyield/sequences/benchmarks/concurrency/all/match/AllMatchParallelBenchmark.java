@@ -1,6 +1,5 @@
 package com.github.tiniyield.sequences.benchmarks.concurrency.all.match;
 
-import com.github.tiniyield.sequences.benchmarks.operations.common.SequenceBenchmarkUtils;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Mode;
@@ -16,7 +15,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
-import static com.github.tiniyield.sequences.benchmarks.operations.common.SequenceBenchmarkConstants.EVEN;
+import static com.github.tiniyield.sequences.benchmarks.Constants.EVEN;
 
 @BenchmarkMode(Mode.Throughput)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
@@ -38,8 +37,12 @@ public class AllMatchParallelBenchmark {
         data = Arrays.asList(getAllEvenArray(COLLECTION_SIZE));
     }
 
+    public boolean isEven(Integer value) {
+        return value % 2 == 0;
+    }
+
     public boolean isEveryEven(Stream<Integer> numbers) {
-        return numbers.allMatch(SequenceBenchmarkUtils::isEven);
+        return numbers.allMatch(this::isEven);
     }
 
     @Benchmark

@@ -5,9 +5,9 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-import static com.github.tiniyield.sequences.benchmarks.operations.common.SequenceBenchmarkConstants.EVEN;
-import static com.github.tiniyield.sequences.benchmarks.operations.common.SequenceBenchmarkConstants.ODD;
-import static org.testng.Assert.*;
+import static com.github.tiniyield.sequences.benchmarks.Constants.EVEN;
+import static com.github.tiniyield.sequences.benchmarks.Constants.ODD;
+import static org.testng.Assert.assertEquals;
 
 public class FindFirstInMiddleParallelBenchmarkTest {
 

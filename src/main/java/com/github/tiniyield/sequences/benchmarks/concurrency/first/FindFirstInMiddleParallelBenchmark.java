@@ -1,6 +1,5 @@
 package com.github.tiniyield.sequences.benchmarks.concurrency.first;
 
-import com.github.tiniyield.sequences.benchmarks.operations.common.SequenceBenchmarkUtils;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Mode;
@@ -17,8 +16,8 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
-import static com.github.tiniyield.sequences.benchmarks.operations.common.SequenceBenchmarkConstants.EVEN;
-import static com.github.tiniyield.sequences.benchmarks.operations.common.SequenceBenchmarkConstants.ODD;
+import static com.github.tiniyield.sequences.benchmarks.Constants.EVEN;
+import static com.github.tiniyield.sequences.benchmarks.Constants.ODD;
 
 @BenchmarkMode(Mode.Throughput)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
@@ -35,8 +34,12 @@ public class FindFirstInMiddleParallelBenchmark {
         return Arrays.asList(numbers);
     }
 
+    public boolean isOdd(Integer value) {
+        return value % 2 != 0;
+    }
+
     public Optional<Integer> findFirst(Stream<Integer> numbers) {
-        return numbers.filter(SequenceBenchmarkUtils::isOdd).findFirst();
+        return numbers.filter(this::isOdd).findFirst();
     }
 
     @Setup
