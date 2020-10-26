@@ -1,7 +1,6 @@
 package com.github.tiniyield.sequences.benchmarks.concurrency.flatmap;
 
 import com.github.tiniyield.sequences.benchmarks.AbstractSequenceOperationsBenchmark;
-import com.github.tiniyield.sequences.benchmarks.operations.data.providers.number.NestedIntegerDataProvider;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Mode;
@@ -12,7 +11,10 @@ import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.infra.Blackhole;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Stream;
 
 @BenchmarkMode(Mode.Throughput)
 @OutputTimeUnit(TimeUnit.SECONDS)
@@ -21,24 +23,36 @@ public class FlatMapAndReduceParallelBenchmark extends AbstractSequenceOperation
 
     @Param({"10000"})
     private int COLLECTION_SIZE;
-    private NestedIntegerDataProvider provider;
 
+    public Stream<Stream<Integer>> getStream() {
+        List<Stream<Integer>> result = new ArrayList<>(COLLECTION_SIZE);
+        for (int i = 0; i < COLLECTION_SIZE; i++) {
+            result.add(Stream.of(1));
+        }
+        return result.stream();
+    }
 
+    public Stream<Stream<Integer>> getParallelStream() {
+        List<Stream<Integer>> result = new ArrayList<>(COLLECTION_SIZE);
+        for (int i = 0; i < COLLECTION_SIZE; i++) {
+            result.add(Stream.of(1).parallel());
+        }
+        return result.stream().parallel();
+    }
 
     @Setup
     public void setup() {
         super.init();
-        provider = new NestedIntegerDataProvider(COLLECTION_SIZE);
     }
 
     @Benchmark
     public void parallel(Blackhole bh) {
-        bh.consume(stream.flatMapAndReduce(provider.asParallelStream()));
+        bh.consume(stream.flatMapAndReduce(getParallelStream()));
     }
 
     @Benchmark
     public void sequential(Blackhole bh) {
-        bh.consume(stream.flatMapAndReduce(provider.asStream()));
+        bh.consume(stream.flatMapAndReduce(getStream()));
     }
 
 }
