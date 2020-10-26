@@ -15,7 +15,5 @@ public class StreamOperations {
         return numbers.filter(SequenceBenchmarkUtils::isOdd).findFirst();
     }
 
-    public Integer flatMapAndReduce(Stream<Stream<Integer>> input) {
-        return input.flatMap(i -> i).reduce(Integer::sum).orElseThrow(RuntimeException::new);
-    }
+
 }

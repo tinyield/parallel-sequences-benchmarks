@@ -40,6 +40,10 @@ public class FlatMapAndReduceParallelBenchmark extends AbstractSequenceOperation
         return result.stream().parallel();
     }
 
+    public Integer flatMapAndReduce(Stream<Stream<Integer>> input) {
+        return input.flatMap(i -> i).reduce(Integer::sum).orElseThrow(RuntimeException::new);
+    }
+
     @Setup
     public void setup() {
         super.init();
@@ -47,12 +51,12 @@ public class FlatMapAndReduceParallelBenchmark extends AbstractSequenceOperation
 
     @Benchmark
     public void parallel(Blackhole bh) {
-        bh.consume(stream.flatMapAndReduce(getParallelStream()));
+        bh.consume(flatMapAndReduce(getParallelStream()));
     }
 
     @Benchmark
     public void sequential(Blackhole bh) {
-        bh.consume(stream.flatMapAndReduce(getStream()));
+        bh.consume(flatMapAndReduce(getStream()));
     }
 
 }
