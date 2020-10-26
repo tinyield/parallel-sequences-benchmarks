@@ -24,7 +24,7 @@ import static com.github.tiniyield.sequences.benchmarks.operations.common.Sequen
 public class AllMatchParallelBenchmark {
 
     @Param({"10000"})
-    private int COLLECTION_SIZE;
+    public int COLLECTION_SIZE;
     private List<Integer> data;
 
     private static Integer[] getAllEvenArray(int size) {

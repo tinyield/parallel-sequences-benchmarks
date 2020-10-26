@@ -16,6 +16,7 @@ public class FlatMapAndReduceParallelBenchmarkTest {
     @BeforeMethod
     public void setup() {
         instance = new FlatMapAndReduceParallelBenchmark();
+        instance.COLLECTION_SIZE = 10;
     }
 
     @Test()

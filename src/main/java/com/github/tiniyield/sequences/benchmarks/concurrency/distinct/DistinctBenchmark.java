@@ -18,7 +18,7 @@ import java.util.stream.Stream;
 @State(Scope.Benchmark)
 public class DistinctBenchmark {
     @Param({"10000"})
-    private int COLLECTION_SIZE;
+    public int COLLECTION_SIZE;
 
     public Stream<Integer> data() {
         Integer[] numbers = new Integer[COLLECTION_SIZE];

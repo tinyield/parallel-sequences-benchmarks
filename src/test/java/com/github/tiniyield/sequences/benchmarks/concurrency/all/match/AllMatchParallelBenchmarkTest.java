@@ -14,6 +14,8 @@ public class AllMatchParallelBenchmarkTest {
     @BeforeMethod
     public void setup() {
         instance = new AllMatchParallelBenchmark();
+        instance.COLLECTION_SIZE = 10;
+        instance.setup();
     }
 
     @Test

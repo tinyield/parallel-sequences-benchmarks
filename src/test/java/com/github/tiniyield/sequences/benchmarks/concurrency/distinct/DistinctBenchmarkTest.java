@@ -12,6 +12,7 @@ public class DistinctBenchmarkTest {
     @BeforeMethod
     public void setup() {
         instance = new DistinctBenchmark();
+        instance.COLLECTION_SIZE = 10;
     }
 
     @Test()

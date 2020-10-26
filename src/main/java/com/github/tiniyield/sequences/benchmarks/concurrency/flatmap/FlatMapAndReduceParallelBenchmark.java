@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 public class FlatMapAndReduceParallelBenchmark {
 
     @Param({"10000"})
-    private int COLLECTION_SIZE;
+    public int COLLECTION_SIZE;
 
     public Stream<Stream<Integer>> getStream() {
         List<Stream<Integer>> result = new ArrayList<>(COLLECTION_SIZE);
