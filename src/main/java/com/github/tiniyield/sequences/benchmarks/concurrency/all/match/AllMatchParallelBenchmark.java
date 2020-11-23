@@ -47,12 +47,12 @@ public class AllMatchParallelBenchmark {
 
     @Benchmark
     public void parallel(Blackhole bh) { // With Auxiliary Function
-        bh.consume(isEveryEven(data.stream()));
+        bh.consume(isEveryEven(data.stream().parallel()));
     }
 
     @Benchmark
     public void sequential(Blackhole bh) { // With Auxiliary Function
-        bh.consume(isEveryEven(data.stream().parallel()));
+        bh.consume(isEveryEven(data.stream()));
     }
 
 }
